@@ -4,7 +4,6 @@ __pycache__/
 *.log
 *.db
 *.sqlite3
-*.bat
 .idea/
 .vscode/
 .env
