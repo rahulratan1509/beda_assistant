@@ -1,0 +1,13 @@
+torch
+transformers
+openai-whisper
+webrtcvad
+sounddevice
+numpy
+textblob
+TTS
+simpleaudio
+gradio
+scipy
+pyyaml
+requests
