@@ -1,24 +1,27 @@
 import requests
+from modules.web_search import perform_web_search
 
-# Adjust this if you're using a different local model
+# Adjust this to your local LLM server
 LLM_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
 
+
 def generate_response(user_input, history):
-    # Format history into proper prompt format
+    # 🔎 Check for web search trigger
+    if user_input.strip().lower().startswith("search:"):
+        query = user_input.strip()[7:].strip()
+        if not query:
+            return "❌ Please provide a query after 'search:'."
+        return perform_web_search(query)
+
+    # 🧠 Format message history for LLM
     messages = []
-
     for role, message in history:
-        if role == "user":
-            messages.append({"role": "user", "content": message})
-        elif role == "assistant":
-            messages.append({"role": "assistant", "content": message})
-
-    # Add current user message
+        messages.append({"role": role, "content": message})
     messages.append({"role": "user", "content": user_input})
 
-    # Send request to the local model
+    # 📤 Payload for the local model
     payload = {
-        "model": "llama-3.2-1b-instruct",  # or whatever your model ID is
+        "model": "llama-3.2-1b-instruct",  # your model id
         "messages": messages,
         "temperature": 0.7,
         "max_tokens": 512,
