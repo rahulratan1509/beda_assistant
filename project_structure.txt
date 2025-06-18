@@ -1,51 +1,13 @@
 beda_assistant/
-├── README.md
-├── beda_memory.db
-├── config
-│   ├── config.yaml
-│   └── logging.conf
 ├── data
-│   ├── beda_memory.db
-│   ├── memory.json
-│   └── user_profiles.json
 ├── generate_file_structure.py
-├── logs
-│   └── beda.log
-├── models
-│   └── pretrained
+├── main.py
 ├── modules
-│   ├── __init__.py
 │   ├── __pycache__
-│   │   ├── __init__.cpython-310.pyc
-│   │   ├── fact_extractor.cpython-310.pyc
-│   │   ├── llm_studio.cpython-310.pyc
-│   │   ├── memory_manager.cpython-310.pyc
 │   │   └── responder.cpython-310.pyc
-│   ├── audio_listener.py
-│   ├── emotion_detector.py
-│   ├── fact_extractor.py
-│   ├── initialize_memory.py
-│   ├── llm_studio.py
-│   ├── memory_manager.py
-│   ├── responder.py
-│   ├── speech_to_text.py
-│   ├── text_to_speech.py
-│   ├── utils.py
-│   └── web_search.py
-├── requirements.txt
-├── run.py
-├── setup_beda.py
-├── start_beda.bat
-├── start_beda.py
-├── tests
-│   ├── test_audio_listener.py
-│   ├── test_memory_manager.py
-│   └── test_responder.py
+│   └── responder.py
+├── run_beda.bat
 └── ui
-    ├── __init__.py
     ├── __pycache__
-    │   ├── __init__.cpython-310.pyc
     │   └── interface.cpython-310.pyc
-    ├── components.py
-    ├── interface.py
-    └── styles.css
+    └── interface.py

@@ -1,5 +1,3 @@
-# run.py - module for beda assistant
-
 from ui.interface import launch_ui
 
 if __name__ == "__main__":
