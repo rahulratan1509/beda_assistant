@@ -1,35 +1,38 @@
 body {
-    background-color: #1e1e1e;
-    color: #ffffff;
+    background-color: #1f1f1f;
+    color: white;
     font-family: 'Segoe UI', sans-serif;
 }
 
-.gradio-container {
-    background-color: #1e1e1e;
+#sidebar {
+    background-color: #292929;
+    color: #00ffc3;
+    padding: 15px;
+    height: 100vh;
+    border-right: 2px solid #444;
 }
 
-.gradio-markdown h1, .gradio-markdown h2 {
-    color: #00ffcc;
+#header {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #00ffc3;
 }
 
 #chatbot {
-    height: 500px;
+    height: 600px;
     overflow-y: auto;
     border: 1px solid #444;
-    background-color: #2c2c2c;
+    background-color: #2a2a2a;
     color: white;
     padding: 10px;
     border-radius: 10px;
 }
 
-.gr-button {
-    background-color: #00ffcc !important;
+#send {
+    background-color: #00ffc3 !important;
     color: black !important;
     border-radius: 8px !important;
-}
-
-.gr-button:hover {
-    background-color: #00e6b8 !important;
+    height: 100%;
 }
 
 .gr-textbox {
@@ -38,8 +41,13 @@ body {
     border: 1px solid #555;
     border-radius: 6px;
 }
+.gr-markdown {
+    white-space: pre-wrap;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.5;
+}
 
-.gr-radio label {
-    background-color: #2a2a2a;
-    color: #eee;
+#chatbot {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }

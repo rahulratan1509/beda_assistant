@@ -1,92 +1,82 @@
 # modules/memory_manager.py
 
+import os
 import sqlite3
 from datetime import datetime
 
-DB_PATH = "data/beda_memory.db"
+DB_PATH = os.path.join("data", "beda_memory.db")
 
-def init_db():
+# Ensure database and table exist
+def init_memory_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
+
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS memory (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            role TEXT NOT NULL,
-            content TEXT NOT NULL,
-            emotion TEXT,
-            topic TEXT,
-            flag TEXT,
-            timestamp TEXT NOT NULL
-        )
+    CREATE TABLE IF NOT EXISTS memory (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        role TEXT NOT NULL,
+        content TEXT NOT NULL,
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
     """)
+
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS facts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            fact TEXT NOT NULL,
-            context TEXT,
-            confidence REAL,
-            timestamp TEXT NOT NULL
-        )
+    CREATE TABLE IF NOT EXISTS facts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        fact TEXT NOT NULL,
+        context TEXT,
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
     """)
+
     conn.commit()
     conn.close()
 
-init_db()
-
-def save_to_memory(role, content, emotion=None, topic=None, flag=None):
+# Save any user/assistant message
+def save_to_memory(role, content):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    timestamp = datetime.utcnow().isoformat()
-    cursor.execute("""
-        INSERT INTO memory (role, content, emotion, topic, flag, timestamp)
-        VALUES (?, ?, ?, ?, ?, ?)
-    """, (role, content, emotion, topic, flag, timestamp))
+    timestamp = datetime.now().isoformat()
+
+    cursor.execute(
+        "INSERT INTO memory (role, content, timestamp) VALUES (?, ?, ?)",
+        (role, content, timestamp)
+    )
+
     conn.commit()
     conn.close()
 
-def save_fact(fact, context=None, confidence=1.0):
+# Fetch recent messages
+def fetch_recent_memory(limit=5):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    timestamp = datetime.utcnow().isoformat()
-    cursor.execute("""
-        INSERT INTO facts (fact, context, confidence, timestamp)
-        VALUES (?, ?, ?, ?)
-    """, (fact, context, confidence, timestamp))
+    cursor.execute("SELECT role, content FROM memory ORDER BY id DESC LIMIT ?", (limit,))
+    rows = cursor.fetchall()
+    conn.close()
+    return rows[::-1]  # Return in chronological order
+
+# Save a persistent fact
+def save_fact(fact, context=""):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    timestamp = datetime.now().isoformat()
+
+    cursor.execute(
+        "INSERT INTO facts (fact, context, timestamp) VALUES (?, ?, ?)",
+        (fact, context, timestamp)
+    )
+
     conn.commit()
     conn.close()
-    
+
+# Load all saved facts
 def load_all_facts():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute("SELECT fact FROM facts ORDER BY id ASC")
+    cursor.execute("SELECT fact FROM facts ORDER BY id")
     rows = cursor.fetchall()
     conn.close()
     return [row[0] for row in rows]
 
-def fetch_recent_memory(limit=10):
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT role, content, emotion, topic, flag, timestamp
-        FROM memory ORDER BY id DESC LIMIT ?
-    """, (limit,))
-    rows = cursor.fetchall()
-    conn.close()
-    return rows[::-1]
-
-# At bottom of your existing memory_manager.py
-def fetch_facts(limit=10):
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("SELECT fact, context, timestamp FROM facts ORDER BY id DESC LIMIT ?", (limit,))
-    rows = cursor.fetchall()
-    conn.close()
-    return rows[::-1]
-
-def clear_memory():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM memory")
-    cursor.execute("DELETE FROM facts")
-    conn.commit()
-    conn.close()
+# Initialize DB on import
+init_memory_db()
