@@ -2,38 +2,54 @@
 
 import os
 import requests
+from dotenv import load_dotenv
 
-SEARCHAPI_IO_KEY = os.getenv("SEARCHAPI_IO_KEY")
-SEARCHAPI_URL = "https://www.searchapi.io/api/v1/search"
+load_dotenv()
+
+SERP_API_KEY = os.getenv("SERP_API_KEY")
+SEARCH_URL = "https://serpapi.com/search"
 
 def perform_web_search(query):
+    if not SERP_API_KEY:
+        print("❌ SERP_API_KEY not set in .env")  # Log for dev
+        return "❌ Web search is unavailable (API key missing)."
+
     try:
         params = {
-            "engine": "duckduckgo",
             "q": query,
-            "api_key": SEARCHAPI_IO_KEY
+            "api_key": SERP_API_KEY,
+            "engine": "google",
+            "num": "3",
+            "hl": "en",
+            "gl": "us"
         }
-        resp = requests.get(SEARCHAPI_URL, params=params)
-        resp.raise_for_status()
-        data = resp.json()
 
+        response = requests.get(SEARCH_URL, params=params)
+
+        if response.status_code == 401:
+            print("❌ [Web Search Error] 401 Unauthorized — check your API key in .env.")
+            return "❌ Web search failed: Invalid API key."
+
+        response.raise_for_status()
+        data = response.json()
         results = data.get("organic_results", [])
+
         if not results:
             return "⚠️ No results found."
 
-        citations = []
-        summary_lines = []
-
+        output = ""
         for i, r in enumerate(results[:3], 1):
-            title = r.get("title", "")
-            snippet = r.get("snippet", "")
-            link = r.get("link", "")
-            summary_lines.append(f"{snippet} [{i}]")
-            citations.append(f"[{i}] [{title}]({link})")
+            title = r.get("title", "No title")
+            link = r.get("link", "#")
+            snippet = r.get("snippet", "No snippet available.")
+            output += f"{i}. [{title}]({link})\n{snippet}\n\n"
 
-        summary = "\n".join(summary_lines)
-        refs = "\n\nSources:\n" + "\n".join(citations)
-        return summary + refs
+        return output.strip()
+
+    except requests.RequestException:
+        print("❌ [Web Search] Network/API failure.")
+        return "❌ Web search is temporarily unavailable."
 
     except Exception as e:
-        return f"❌ Web search failed: {e}"
+        print(f"❌ [Unexpected Web Search Error] {e}")
+        return "❌ An unexpected error occurred during web search."

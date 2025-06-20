@@ -6,18 +6,22 @@ from modules.web_search import perform_web_search
 LLM_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
 
 def generate_response(user_input, history, search_enabled=False):
-    if search_enabled and user_input.lower().startswith("search:"):
+    # ✅ Only trigger search if user explicitly types "search:"
+    if user_input.lower().startswith("search:"):
         query = user_input[len("search:"):].strip()
-        debug_info = f"🔎 [Search triggered manually]\nQuery: {query}"
-        result = perform_web_search(query)
-        return f"{result}\n\n{debug_info}"
+        print(f"[🔎 Manual Web Search Triggered] Query: {query}")  # Developer log only
+        return perform_web_search(query)  # ✅ No debug info shown to user
 
+    # 🔧 Placeholder for auto-trigger search in future
+    # if search_enabled and should_trigger_search(user_input): ...
+
+    # 🧠 System prompt
     system_prompt = {
         "role": "system",
         "content": (
             "You are Beda, a calm, caring, and helpful assistant. "
             "You answer clearly and concisely. Avoid guessing. "
-            "Do not invent web results. Do not search the web unless explicitly asked."
+            "Do not invent web results. Only trigger web search if the user prompt starts with 'search:'."
         )
     }
 
@@ -36,4 +40,5 @@ def generate_response(user_input, history, search_enabled=False):
         res.raise_for_status()
         return res.json()['choices'][0]['message']['content'].strip()
     except Exception as e:
-        return f"❌ Error: {e}"
+        print(f"[❌ LLM Error] {e}")  # Dev-side
+        return "❌ Sorry, something went wrong while generating a response."

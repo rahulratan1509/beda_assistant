@@ -7,6 +7,8 @@ import markdown
 from pygments.formatters import HtmlFormatter
 from markdown.extensions.fenced_code import FencedCodeExtension
 from markdown.extensions.codehilite import CodeHiliteExtension
+from modules.web_search import perform_web_search
+
 
 sessions = {}
 current_session = new_session_id()
@@ -63,11 +65,13 @@ def chat(user_input, chatbox_html, session_id, web_search_toggle):
     history = sessions[session_id]
     history.append(("user", user_input))
 
-    if web_search_toggle and user_input.lower().startswith("search:"):
-        print("[Search manually triggered]")
-        response = generate_response(user_input, history)
+    # ✅ Auto-trigger web search if toggle is ON
+    if web_search_toggle:
+        print("[🔎 Web search auto-triggered via toggle]")
+        response = perform_web_search(user_input)
     else:
-        response = generate_response(user_input, history)
+        # Default LLM response
+        response = generate_response(user_input, history, search_enabled=False)
 
     history.append(("assistant", response))
     sessions[session_id] = history
@@ -116,7 +120,7 @@ def launch_ui():
                     user_input = gr.Textbox(placeholder="Type your message...", lines=2, scale=9)
                     send_btn = gr.Button("➤", elem_id="send-button", scale=1)
 
-                search_toggle = gr.Checkbox(label="Enable Web Search (manual only)", value=False)
+                search_toggle = gr.Checkbox(label="Enable Web Search", value=False)
 
         # ✅ Event Bindings
         send_btn.click(
