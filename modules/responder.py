@@ -1,33 +1,27 @@
+# modules/responder.py
+
 import requests
 from modules.web_search import perform_web_search
 
 LLM_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
 
-def ask_if_search_needed(user_input):
-    check_messages = [
-        {"role": "system", "content": "If this user query needs real-time information from the internet, respond ONLY with the word 'SEARCH_NEEDED'. Otherwise, reply with 'NO_SEARCH'."},
-        {"role": "user", "content": user_input}
-    ]
-    payload = {
-        "model": "llama-3.2-1b-instruct",
-        "messages": check_messages,
-        "temperature": 0.0,
-        "max_tokens": 5,
+def generate_response(user_input, history, search_enabled=False):
+    if search_enabled and user_input.lower().startswith("search:"):
+        query = user_input[len("search:"):].strip()
+        debug_info = f"🔎 [Search triggered manually]\nQuery: {query}"
+        result = perform_web_search(query)
+        return f"{result}\n\n{debug_info}"
+
+    system_prompt = {
+        "role": "system",
+        "content": (
+            "You are Beda, a calm, caring, and helpful assistant. "
+            "You answer clearly and concisely. Avoid guessing. "
+            "Do not invent web results. Do not search the web unless explicitly asked."
+        )
     }
-    try:
-        res = requests.post(LLM_ENDPOINT, json=payload)
-        res.raise_for_status()
-        decision = res.json()['choices'][0]['message']['content'].strip().upper()
-        return decision
-    except Exception as e:
-        return "NO_SEARCH"  # fallback to normal reply
 
-def generate_response(user_input, history):
-    if ask_if_search_needed(user_input) == "SEARCH_NEEDED":
-        return perform_web_search(user_input)
-
-    # build chat history for standard LLM response
-    messages = [{"role": role, "content": msg} for role, msg in history]
+    messages = [system_prompt] + [{"role": role, "content": msg} for role, msg in history]
     messages.append({"role": "user", "content": user_input})
 
     payload = {
@@ -40,7 +34,6 @@ def generate_response(user_input, history):
     try:
         res = requests.post(LLM_ENDPOINT, json=payload)
         res.raise_for_status()
-        data = res.json()
-        return data['choices'][0]['message']['content'].strip()
+        return res.json()['choices'][0]['message']['content'].strip()
     except Exception as e:
-        return f"❌ Error generating response: {str(e)}"
+        return f"❌ Error: {e}"

@@ -3,23 +3,17 @@ import os
 from modules.responder import generate_response
 from modules.session_manager import load_session, save_session, list_sessions, new_session_id
 
-sessions = {}
-current_session = new_session_id()
-
-
 import markdown
 from pygments.formatters import HtmlFormatter
-
-import markdown
-from pygments.formatters import HtmlFormatter
-from markdown.extensions import Extension
 from markdown.extensions.fenced_code import FencedCodeExtension
 from markdown.extensions.codehilite import CodeHiliteExtension
+
+sessions = {}
+current_session = new_session_id()
 
 def render_chat(history):
     formatter = HtmlFormatter(style="monokai", noclasses=True)
     css = formatter.get_style_defs('.highlight')
-    
     rendered = f"<style>{css}</style>"
 
     for role, msg in history:
@@ -30,8 +24,6 @@ def render_chat(history):
                 CodeHiliteExtension(noclasses=True, pygments_style="monokai"),
             ]
         )
-
-        # Inject copy button above each <pre> block
         html_msg = html_msg.replace(
             "<div class=\"codehilite\"><pre>",
             """
@@ -43,7 +35,6 @@ def render_chat(history):
 
         align = "right" if role == "user" else "left"
         bubble_color = "#1f1f1f" if role == "user" else "#2c2c2c"
-
         rendered += f"""
         <div style='text-align:{align}; margin:10px;'>
             <div style='display:inline-block; background-color:{bubble_color}; padding:10px 15px; border-radius:12px; color:white; max-width:85%; overflow-x:auto;'>
@@ -65,27 +56,24 @@ def render_chat(history):
     """
     return rendered
 
-
-
-
-def chat(user_input, chatbox_html, session_id):
-    # Load session history if not already in memory
+def chat(user_input, chatbox_html, session_id, web_search_toggle):
     if session_id not in sessions:
         sessions[session_id] = load_session(session_id)
 
     history = sessions[session_id]
     history.append(("user", user_input))
 
-    # Generate response using full history
-    response = generate_response(user_input, history)
-    history.append(("assistant", response))
+    if web_search_toggle and user_input.lower().startswith("search:"):
+        print("[Search manually triggered]")
+        response = generate_response(user_input, history)
+    else:
+        response = generate_response(user_input, history)
 
-    # Save in-memory and to disk
+    history.append(("assistant", response))
     sessions[session_id] = history
     save_session(session_id, history)
 
     return "", render_chat(history)
-
 
 def load_chat(session_id):
     global current_session
@@ -94,9 +82,7 @@ def load_chat(session_id):
     if session_id not in sessions:
         sessions[session_id] = load_session(session_id)
 
-    history = sessions[session_id]
-    return gr.update(value=session_id), render_chat(history)
-
+    return gr.update(value=session_id), render_chat(sessions[session_id])
 
 def delete_session(session_id):
     path = os.path.join("data", f"{session_id}.json")
@@ -104,7 +90,6 @@ def delete_session(session_id):
         os.remove(path)
     sessions.pop(session_id, None)
     return gr.update(choices=list_sessions()), "", new_session_id()
-
 
 def launch_ui():
     with gr.Blocks(css="""
@@ -126,13 +111,24 @@ def launch_ui():
             with gr.Column(scale=4):
                 session_id_box = gr.Textbox(value=current_session, visible=False)
                 chatbox = gr.HTML(render_chat([]), elem_id="chat-scroll")
+
                 with gr.Row(elem_id="input-area"):
                     user_input = gr.Textbox(placeholder="Type your message...", lines=2, scale=9)
                     send_btn = gr.Button("➤", elem_id="send-button", scale=1)
 
-        # Events
-        send_btn.click(fn=chat, inputs=[user_input, chatbox, session_id_box], outputs=[user_input, chatbox])
-        user_input.submit(fn=chat, inputs=[user_input, chatbox, session_id_box], outputs=[user_input, chatbox])
+                search_toggle = gr.Checkbox(label="Enable Web Search (manual only)", value=False)
+
+        # ✅ Event Bindings
+        send_btn.click(
+            fn=chat,
+            inputs=[user_input, chatbox, session_id_box, search_toggle],
+            outputs=[user_input, chatbox]
+        )
+        user_input.submit(
+            fn=chat,
+            inputs=[user_input, chatbox, session_id_box, search_toggle],
+            outputs=[user_input, chatbox]
+        )
         session_list.change(fn=load_chat, inputs=session_list, outputs=[session_id_box, chatbox])
         refresh_btn.click(fn=lambda: gr.update(choices=list_sessions()), outputs=session_list)
         new_btn.click(fn=lambda: [new_session_id(), ""], outputs=[session_id_box, chatbox])

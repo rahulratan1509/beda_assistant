@@ -1,0 +1,38 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# VSCode settings
+.vscode/
+
+# MacOS / Windows system files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Data and session logs
+data/*.json
+
+# Compiled UI cache
+ui/__pycache__/
+modules/__pycache__/
+
+# Git metadata backup (safety)
+*.swp
+*.swo
+
+# Ignore generated structure file
+project_structure.txt

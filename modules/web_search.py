@@ -1,63 +1,39 @@
+# modules/web_search.py
+
 import os
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
-
-SERP_API_KEY = os.getenv("SERP_API_KEY")
-SEARCH_URL = "https://serpapi.com/search"
+SEARCHAPI_IO_KEY = os.getenv("SEARCHAPI_IO_KEY")
+SEARCHAPI_URL = "https://www.searchapi.io/api/v1/search"
 
 def perform_web_search(query):
     try:
-        # First try using SerpAPI
         params = {
+            "engine": "duckduckgo",
             "q": query,
-            "api_key": SERP_API_KEY,
-            "engine": "google",
+            "api_key": SEARCHAPI_IO_KEY
         }
-        response = requests.get(SEARCH_URL, params=params)
-        response.raise_for_status()
-        data = response.json()
+        resp = requests.get(SEARCHAPI_URL, params=params)
+        resp.raise_for_status()
+        data = resp.json()
+
         results = data.get("organic_results", [])
+        if not results:
+            return "⚠️ No results found."
 
-        if results:
-            return format_results(results[:3])
-    except Exception as e:
-        print("⚠️ SerpAPI failed, falling back to DuckDuckGo:", e)
+        citations = []
+        summary_lines = []
 
-    # DuckDuckGo Fallback
-    try:
-        duck_url = "https://api.duckduckgo.com/"
-        duck_params = {
-            "q": query,
-            "format": "json",
-            "no_html": 1,
-            "skip_disambig": 1,
-        }
-        response = requests.get(duck_url, params=duck_params)
-        response.raise_for_status()
-        data = response.json()
-        abstract = data.get("AbstractText")
-        related = data.get("RelatedTopics", [])
-        
-        if abstract:
-            return f"📄 {abstract}"
+        for i, r in enumerate(results[:3], 1):
+            title = r.get("title", "")
+            snippet = r.get("snippet", "")
+            link = r.get("link", "")
+            summary_lines.append(f"{snippet} [{i}]")
+            citations.append(f"[{i}] [{title}]({link})")
 
-        top_related = []
-        for topic in related[:3]:
-            if isinstance(topic, dict) and "Text" in topic and "FirstURL" in topic:
-                top_related.append(f"🔗 [{topic['Text']}]({topic['FirstURL']})")
-        
-        return "\n\n".join(top_related) or "No results found."
+        summary = "\n".join(summary_lines)
+        refs = "\n\nSources:\n" + "\n".join(citations)
+        return summary + refs
 
     except Exception as e:
         return f"❌ Web search failed: {e}"
-
-def format_results(results):
-    formatted = ""
-    for result in results:
-        title = result.get("title", "No Title")
-        link = result.get("link", "")
-        snippet = result.get("snippet", "")
-        formatted += f"🔗 [{title}]({link})\n{snippet}\n\n"
-    return formatted.strip()
