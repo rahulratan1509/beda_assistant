@@ -32,7 +32,7 @@ def generate_response(user_input, history, search_enabled=False):
         "model": "llama-3.2-1b-instruct",
         "messages": messages,
         "temperature": 0.7,
-        "max_tokens": 512,
+        "max_tokens": 4000,
     }
 
     try:

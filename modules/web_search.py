@@ -3,53 +3,67 @@
 import os
 import requests
 from dotenv import load_dotenv
+from newspaper import Article
 
 load_dotenv()
-
 SERP_API_KEY = os.getenv("SERP_API_KEY")
 SEARCH_URL = "https://serpapi.com/search"
 
 def perform_web_search(query):
     if not SERP_API_KEY:
-        print("❌ SERP_API_KEY not set in .env")  # Log for dev
-        return "❌ Web search is unavailable (API key missing)."
+        return "❌ Web search unavailable: API key missing."
 
     try:
         params = {
             "q": query,
             "api_key": SERP_API_KEY,
             "engine": "google",
-            "num": "3",
+            "num": "5",
             "hl": "en",
             "gl": "us"
         }
 
         response = requests.get(SEARCH_URL, params=params)
-
         if response.status_code == 401:
-            print("❌ [Web Search Error] 401 Unauthorized — check your API key in .env.")
             return "❌ Web search failed: Invalid API key."
 
-        response.raise_for_status()
         data = response.json()
         results = data.get("organic_results", [])
 
-        if not results:
-            return "⚠️ No results found."
+        # If snippets are weak or missing, use newspaper3k on top link
+        scrape_needed = any(len(r.get("snippet", "")) < 50 for r in results[:3])
+        links = [r.get("link") for r in results[:3]]
 
-        output = ""
-        for i, r in enumerate(results[:3], 1):
-            title = r.get("title", "No title")
-            link = r.get("link", "#")
-            snippet = r.get("snippet", "No snippet available.")
-            output += f"{i}. [{title}]({link})\n{snippet}\n\n"
+        references = []
+        snippets = []
+        for i, result in enumerate(results[:3]):
+            title = result.get("title", "No title")
+            link = result.get("link", "#")
+            snippet = result.get("snippet", "")
 
-        return output.strip()
+            if len(snippet) < 50 and scrape_needed:
+                try:
+                    article = Article(link)
+                    article.download()
+                    article.parse()
+                    snippet = article.text[:4000].replace("\n", " ")
+                except:
+                    pass
 
-    except requests.RequestException:
-        print("❌ [Web Search] Network/API failure.")
-        return "❌ Web search is temporarily unavailable."
+            references.append(f"[{i+1}] {title} — {link}")
+            snippets.append((snippet, i + 1))
+
+        # Create a summary using LLM from snippets
+        context = "\n\n".join([f"[{i}] {text}" for text, i in snippets])
+        prompt = f"""Summarize the following info naturally in a short paragraph with numbered citations [1], [2], etc. Keep it concise, clear, and objective.
+
+{context}
+"""
+
+        from modules.llm_wrapper import call_llm  # We'll define this next
+        summary = call_llm(prompt, max_tokens=300)
+
+        return f"{summary}\n\n" + "\n".join(references)
 
     except Exception as e:
-        print(f"❌ [Unexpected Web Search Error] {e}")
-        return "❌ An unexpected error occurred during web search."
+        return f"❌ Web search error: {str(e)}"
