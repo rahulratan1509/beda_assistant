@@ -45,7 +45,7 @@ beda_assistant/
 
 ### 1. Clone the repo
 
-git clone https://github.com/your-username/beda_assistant.git
+git clone https://github.com/rahulratan1509/beda_assistant.git
 cd beda_assistant
 
 
