@@ -43,7 +43,13 @@ beda_assistant/
 │   │   ├── 09
 │   │   │   └── 0f596b5c4d627509a657e653024c9ea9ba1232
 │   │   ├── 0b
-│   │   │   └── c4410dda8e514146ab240d01005d50ed92dcf3
+│   │   │   ├── c4410dda8e514146ab240d01005d50ed92dcf3
+│   │   │   └── d8529a121f20b001ca31b0ca0145a4e111782d
+│   │   ├── 0c
+│   │   │   ├── 5a229f890a531a1172783419b95092f50b68f1
+│   │   │   └── a7ccd8b7d95dd178dcff4b6264599a47d0b845
+│   │   ├── 0f
+│   │   │   └── 552c1d77c4bff4f8b3707ff60c5d8c52bbd83c
 │   │   ├── 10
 │   │   │   └── 0c0691380112826f58cf29c7f7e415a93f319f
 │   │   ├── 11
@@ -60,11 +66,18 @@ beda_assistant/
 │   │   │   ├── 13e7d9799c7abd1cc3e903e931a87571ce5cec
 │   │   │   └── 8d6972ef6c86aba8aa583b6e868d1b29b67191
 │   │   ├── 20
-│   │   │   └── 629da3e81d128b07bcd8f8b74ee100e9dbb998
+│   │   │   ├── 629da3e81d128b07bcd8f8b74ee100e9dbb998
+│   │   │   ├── 7dfec7a93687959f187b7a23f2ad273e92fc50
+│   │   │   └── 93cd43dd8885b03bb5a9db426d86f8599f032d
 │   │   ├── 22
 │   │   │   └── 2815993cad786e2cb41ef0233004832189c8dc
+│   │   ├── 23
+│   │   │   └── 48ce6679ad8c25f1a5084be174a0753292cca1
 │   │   ├── 25
 │   │   │   └── 0fd03d7a33dcbdfa4993106a1a6a90ec2a1f5b
+│   │   ├── 28
+│   │   │   ├── c12e943c952cb7273b4190c2310911f54d15d3
+│   │   │   └── da0f6fdf3804f0791a40d6f8d28b15a330596e
 │   │   ├── 29
 │   │   │   └── 47b53448dcd734e4f5eeaa2bb3975a2991126b
 │   │   ├── 2a
@@ -75,12 +88,25 @@ beda_assistant/
 │   │   │   ├── 49dbaa1e34b6c3148613af1ee978a64025cc87
 │   │   │   └── b86283284d229883b7cce4c46c7f795021700e
 │   │   ├── 31
+│   │   │   ├── 4d7b0a1c2945eb553e8baf6e147e4453c77ee6
 │   │   │   └── e13ce9f95db27a296a659e164607ceb2c5cc09
+│   │   ├── 34
+│   │   │   └── 66b39e253b87a4e6f05b44d3ec8d5d5998b3f9
 │   │   ├── 35
 │   │   │   └── f2627fe9b07d022422509eaa4547d08e7317ba
+│   │   ├── 38
+│   │   │   └── 71f36f6826adfd0cca322c607528ee0ddda034
+│   │   ├── 3a
+│   │   │   └── e7c6bc27e2325f90d4aa2cd2b9b153ca114f85
+│   │   ├── 3b
+│   │   │   └── 735089671c1cc972fbc8a5a0171b31c6aac894
+│   │   ├── 3d
+│   │   │   └── efe2eb8b7c232399bf0c77ead56e0cac987e72
 │   │   ├── 3e
 │   │   │   ├── a2171c7db6fd961b40c62afe48eeea06ad45c3
 │   │   │   └── dc553fa289a324e789626bf40d818f80c3dffb
+│   │   ├── 43
+│   │   │   └── 37b3d10f324f731df1720312e3d69457a9a2de
 │   │   ├── 44
 │   │   │   └── 5303ae6924cc1c4e79a6f641152b038a1138f8
 │   │   ├── 45
@@ -92,10 +118,16 @@ beda_assistant/
 │   │   │   └── aada514c3f251ac82c87f09aec0f1813e87e69
 │   │   ├── 4a
 │   │   │   └── 311d329dc397bc3efb39dd969b28a84d65f88a
+│   │   ├── 4c
+│   │   │   └── 270aef54f1fb0c2e459da2bae3ac695a89d657
 │   │   ├── 4d
 │   │   │   └── d96912cbc2f0fd62b4a2eaddfd731f8579de02
 │   │   ├── 4e
 │   │   │   └── 7d77b79a19d1dc59c322d5795db38008cc4d79
+│   │   ├── 4f
+│   │   │   └── 79ad906d15942f3c7cee80bf288cc91e621ffb
+│   │   ├── 50
+│   │   │   └── 12179bf0920f0228af82e57256ed0b1c0f8bd9
 │   │   ├── 52
 │   │   │   ├── 1d73816321ecf434d4193c392b5c7e95a39c6e
 │   │   │   └── ed2376a705e39fff306dbea9f6fbe6f4f732ac
@@ -105,8 +137,17 @@ beda_assistant/
 │   │   │   └── 0a10050f6f784cd48f0378ef1ce60aff336b8e
 │   │   ├── 5a
 │   │   │   └── 41987f6ed90fa185eab781af8976418c3f51f5
+│   │   ├── 5e
+│   │   │   └── 2e75df7524fda471f6988106a30e64bc90458f
+│   │   ├── 60
+│   │   │   └── 1116b2d93ac17be35fde4772eda97ebd9bb147
+│   │   ├── 61
+│   │   │   ├── e4e84f57f1f46b219ca34e2539c7dd21c3bf50
+│   │   │   └── f402cd150e3e1fa9e521a2b383913483592b94
 │   │   ├── 62
 │   │   │   └── f51b4721eb93c12e8eecc6326d647479d1c16d
+│   │   ├── 65
+│   │   │   └── 1aaeacee8f074604b7565257896db9223705dc
 │   │   ├── 67
 │   │   │   ├── 40997a264180af4d13848c0e7187d92d1e0ec0
 │   │   │   └── b0a331d33e46e5e89ad136b962349b60bd92ef
@@ -115,33 +156,57 @@ beda_assistant/
 │   │   ├── 6a
 │   │   │   ├── 7959df7c23c7021e13419b165f1293b32c75d3
 │   │   │   └── e4621a1f56f8b263fbfe065a8f266c2f54757f
+│   │   ├── 6b
+│   │   │   └── 86340a7ad794f357db71c20f5605fa549b9e7d
+│   │   ├── 6d
+│   │   │   └── fcc51a8f71c208bae0b605e1c25f3b266d3992
+│   │   ├── 6f
+│   │   │   ├── 765abe06fa3cc654a94d59abdca3b0deacb206
+│   │   │   └── ceecf8c51b8642743aa57f525cd1a26c4709da
+│   │   ├── 72
+│   │   │   └── 8ccd88a0c31b504366dc7fe4a236aeee149827
+│   │   ├── 75
+│   │   │   └── 69ac944a0e2412aad3c2aa3fa7b5785ce79a11
 │   │   ├── 78
 │   │   │   └── b70343182d7c78deea17a2b2b1511ddce607d6
 │   │   ├── 79
 │   │   │   └── 7781b467e2c1e7a207d16a9f3029855b36697e
 │   │   ├── 7c
 │   │   │   └── 2496b59cab419461e803cd9c964d345221f148
+│   │   ├── 7d
+│   │   │   └── b172484d8399f83b286a0ad72b74fdd3b4509d
+│   │   ├── 80
+│   │   │   └── 77743dff10379dc1bdb1b22995e27af50cff74
 │   │   ├── 82
 │   │   │   └── 8619d681016c1f6a4f294c1a412716ed2e5488
 │   │   ├── 84
-│   │   │   └── 1a9c905673770920c1910d4deb9f2ef046e3bf
+│   │   │   ├── 1a9c905673770920c1910d4deb9f2ef046e3bf
+│   │   │   └── a9fbe084f48da0d83eceb3c89834e4bb9178e4
+│   │   ├── 85
+│   │   │   └── 98691e03622c7e192c29ec6b3776b93c3a127c
 │   │   ├── 89
-│   │   │   └── 07972c5ab0bb48dfc0fce1086a53c615e0cf82
+│   │   │   ├── 07972c5ab0bb48dfc0fce1086a53c615e0cf82
+│   │   │   └── 34bd9cd9d33d2971d36b4ae98f4a58f371d6e5
 │   │   ├── 8a
+│   │   │   ├── 0dafcf20596f85de9526a8094ee2b44137f00d
 │   │   │   └── 68c82dbc78f1dc6ed9fc2f252125edfbe46180
 │   │   ├── 8d
 │   │   │   └── c56ab4f0c7b31fd535d62cedc79663bf40364f
 │   │   ├── 8e
 │   │   │   └── 2b76f9f4898f8e834be7b8380d2970ac494b2d
 │   │   ├── 90
-│   │   │   └── ad971e93ddc70593753197aede768ccd19b198
+│   │   │   ├── ad971e93ddc70593753197aede768ccd19b198
+│   │   │   └── f875d0c035ad3e382255623830320f3a64ffa9
 │   │   ├── 91
 │   │   │   ├── 2694f002f2445c5727517249e9596f760bf561
 │   │   │   └── 69673d9ee117443c97db11628dad8a94c89cdc
+│   │   ├── 94
+│   │   │   └── cb12b61cab39fced467bda46a1372c44a6d365
 │   │   ├── 97
 │   │   │   └── f8889673eb938654eceac9ace0ce2d38491f43
 │   │   ├── 99
-│   │   │   └── b5ed40fe313311aa1f8137281164cdcad1b73f
+│   │   │   ├── b5ed40fe313311aa1f8137281164cdcad1b73f
+│   │   │   └── c2765d355cb71f4d287b9d13a4ca3c0c7482e9
 │   │   ├── 9a
 │   │   │   └── f61dff5968f4998d56d77525e1f6ddc8d3a522
 │   │   ├── 9d
@@ -152,48 +217,74 @@ beda_assistant/
 │   │   │   └── 48f47fed4f0f3f673c2059dc82ada126952366
 │   │   ├── a3
 │   │   │   └── 6b3c10c1c56181dd041971f88564d4e80c07f5
+│   │   ├── a4
+│   │   │   └── 847d7569d3b3d14289146c7af9fbc532407408
 │   │   ├── a7
 │   │   │   ├── 03c1b740c8314988b2869e67252723b78006b2
 │   │   │   └── eebc1dce7c6d4b2128a1c86ec44dc840e8c534
 │   │   ├── a9
 │   │   │   └── e4a0cbe226b4deb738ac2877116649b33657a1
+│   │   ├── ae
+│   │   │   ├── 21940b0d1dfab8513c064fad44b12335ebde0a
+│   │   │   └── 8f82f7af733e63b7ce519f013ac22672beb200
 │   │   ├── b0
 │   │   │   ├── 2ef71bf856ff7e8f38eea6a10e1828cfc76d71
 │   │   │   └── 4c64e42625ec4d807118da3ef3fe59283ee0cb
 │   │   ├── b2
 │   │   │   └── fda5b2184a0e6f9e608477496fc34f9fef7007
+│   │   ├── b3
+│   │   │   ├── 1f8264c0dc76ff754234a3832da7ef6da167f2
+│   │   │   └── 99e7a3673d6d51e22de07ca0ca69adb9892630
 │   │   ├── bb
-│   │   │   └── 0fc697a8f215c09209d0697219e417551fe4f7
+│   │   │   ├── 0fc697a8f215c09209d0697219e417551fe4f7
+│   │   │   ├── 3e9450c0e8ab35c44fe5b3ecc760a3f8d4fbd8
+│   │   │   └── 8dec6f699778696d3a8fc86c22067610d3218f
 │   │   ├── bc
 │   │   │   └── 6a0ea53dbe9d274b4cbcec3e132853fe6881b5
 │   │   ├── be
+│   │   │   ├── 50a5c31756f54d02f268c27dcfa1a37aa723fb
 │   │   │   └── eefec60b67706a4851a22319c42ee38d7bf98d
 │   │   ├── bf
 │   │   │   └── caf5a052e1c513ab54c10db5ac1842005e7add
 │   │   ├── c4
 │   │   │   └── abf184839872a902fa0e9db5b875e0a658f197
+│   │   ├── c6
+│   │   │   └── 2e25bba71623117d2f7266ec198f503fd75861
 │   │   ├── c9
 │   │   │   └── 9d46083d121be2478e8f3f5ffe97153214a32c
 │   │   ├── ce
 │   │   │   └── c4cebc6996cf663ebe0982ae4b3825b8fb1d76
+│   │   ├── d0
+│   │   │   └── e7a6743a44b5db23b3a265bddb82e959745180
 │   │   ├── d7
 │   │   │   └── a4393a4329835389bf4f2a96aedd7ed544d961
+│   │   ├── d8
+│   │   │   └── f684255fb555f6f4a28675e0eb2ad76b92ef0b
+│   │   ├── dd
+│   │   │   └── 287c7f8946859931978f5515582e8f95b55a3f
 │   │   ├── de
 │   │   │   └── ecbfb205a1d0ede679171e9694d8047e4e0719
 │   │   ├── e2
 │   │   │   └── 520239b63922b5b19269f36f53e77892055841
+│   │   ├── e3
+│   │   │   └── 271a69327b97f39d671eeb8e4e563d6360a1aa
 │   │   ├── e5
 │   │   │   └── bac4955978fcd65ea1efa13dcab41c19c84853
 │   │   ├── e6
 │   │   │   ├── 9de29bb2d1d6434b8b29ae775ad8c2e48c5391
 │   │   │   └── cfbe7de41371c8feddb61c0b742cbd70b5224f
+│   │   ├── e7
+│   │   │   └── 903390ce7fab1346095e8b50e1ecb8d313fd1a
 │   │   ├── e8
 │   │   │   ├── 581c6e7c5cf137779318e8dd41cb5075aad180
 │   │   │   └── df00f706c06222d0ad233a6c0dc0893359afc1
 │   │   ├── e9
+│   │   │   ├── 96a79a1779623f1512774d8ae135eb0a039e41
 │   │   │   └── b85ee5fad39ab1b21112d1420189c504fd3542
 │   │   ├── ea
 │   │   │   └── 7eafe276478ec99be7d1805c99700861926f19
+│   │   ├── eb
+│   │   │   └── 84836b5df8bab14f85c356cdf2cad767aca1c0
 │   │   ├── ec
 │   │   │   └── fa039a576c5794bdb388575462c72cd4f5d842
 │   │   ├── ef
@@ -204,6 +295,8 @@ beda_assistant/
 │   │   │   └── c53ce2f466cd4cdf84262b6f6d5aa3fc64f09c
 │   │   ├── f2
 │   │   │   └── 78c34464aa4d02a58414deafecec0589e4e2f9
+│   │   ├── f4
+│   │   │   └── 8101761b94cf08dfcc2a906231d6d366c3283d
 │   │   ├── f5
 │   │   │   └── 37c9e41b6a92c4303cd35e406006b297feaaff
 │   │   ├── f6
@@ -212,8 +305,11 @@ beda_assistant/
 │   │   │   └── d91d58d947daffd75b4a4b90598455aef43c3f
 │   │   ├── fc
 │   │   │   └── 6e00bb5fb2fdd8eb12677efe83e1725f27538f
+│   │   ├── fd
+│   │   │   └── e742a501db3cb308b03e314b94c4606e49aaed
 │   │   ├── ff
-│   │   │   └── 2f42482660eb8c8a3d0693dab25dbf65e4ca94
+│   │   │   ├── 2f42482660eb8c8a3d0693dab25dbf65e4ca94
+│   │   │   └── fadccf8941647df8b3d351a908553b2a3dfdfb
 │   │   ├── info
 │   │   └── pack
 │   └── refs
@@ -223,16 +319,18 @@ beda_assistant/
 │       │   └── origin
 │       │       └── main
 │       └── tags
+├── .gitignore
 ├── data
-│   └── session_20250620_181352.json
 ├── generate_file_structure.py
 ├── main.py
 ├── modules
 │   ├── __pycache__
+│   │   ├── llm_wrapper.cpython-310.pyc
 │   │   ├── responder.cpython-310.pyc
 │   │   ├── session.cpython-310.pyc
 │   │   ├── session_manager.cpython-310.pyc
 │   │   └── web_search.cpython-310.pyc
+│   ├── llm_wrapper.py
 │   ├── responder.py
 │   ├── session_manager.py
 │   └── web_search.py
