@@ -23,9 +23,6 @@ Thumbs.db
 # Environment variables
 .env
 
-
-
-
 # Compiled UI cache
 ui/__pycache__/
 modules/__pycache__/
@@ -37,4 +34,6 @@ modules/__pycache__/
 # Ignore generated structure file
 project_structure.txt
 
+# Explicitly include data/ folder and its contents
 !data/
+!data/**
