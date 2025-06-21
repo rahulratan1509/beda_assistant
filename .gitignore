@@ -24,7 +24,7 @@ Thumbs.db
 .env
 
 # Data and session logs
-data/*.json
+.json
 
 # Compiled UI cache
 ui/__pycache__/
